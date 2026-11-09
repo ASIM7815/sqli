@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Search Records - NEXUS ARCHIVE{% endblock %}
+
+{% block content %}
+<div class="search-page">
+    <header class="page-header">
+        <h2>Legacy Record Search</h2>
+        <p>Search through the records database using the legacy search interface.</p>
+    </header>
+
+    <form method="post" class="search-form card" novalidate>
+        <span class="rail" aria-hidden="true"></span>
+        <div class="term-bar">
+            <span class="term-led" aria-hidden="true"></span>
+            <span>record_search</span>
+            <span class="path" aria-hidden="true">:: /nexus/records/search</span>
+        </div>
+        <div class="term-body">
+            <div class="form-group">
+                <label for="search_term">Search Term</label>
+                <input type="text" id="search_term" name="search_term" value="{{ search_term }}" placeholder="Enter search term..." autocomplete="off" required autofocus>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    {% if error %}
+    <div class="card error-message">
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
+    {% if results is not none and results|length > 0 %}
+    <div class="search-results">
+        <h3>Results ({{ results|length }})</h3>
+        <p class="result-meta">&gt; stream attached<span class="prompt-caret" aria-hidden="true">_</span></p>
+        <div class="records-list">
+            {% for record in results %}
+            <article class="record-row">
+                <div class="record-row-head">
+                    <span class="rec-id">REC-{{ record.id }}</span>
+                    <h3>{{ record.title }}</h3>
+                    <span class="record-category">{{ record.category|string }}</span>
+                </div>
+                <p class="record-preview">{{ (record.content|string)[:150] }}{% if (record.content|string)|length > 150 %}...{% endif %}</p>
+                <div class="record-row-foot">
+                    {% if record.id is integer and 1 <= record.id <= 8 %}
+                    <a href="{{ url_for('main.record_detail', rec_id=record.id) }}" class="btn btn-secondary">View</a>
+                    {% endif %}
+                    <span class="prompt-caret" aria-hidden="true">&gt;</span>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% elif request.method == "POST" and not error %}
+    <div class="card empty-state">
+        <p>No records found matching your search.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

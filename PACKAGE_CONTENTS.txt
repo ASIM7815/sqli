@@ -1,0 +1,19 @@
+QueryQuest participant deployment package
+
+Included:
+- Flask application source and templates
+- runtime dependencies
+- Dockerfile and Compose configuration
+- startup/database initialization script
+- participant challenge description
+- organizer deployment guide
+
+Intentionally excluded:
+- challenge_seed.py and the source ZIP's default flag
+- original README with solution walkthrough
+- tests and test results
+- local SQLite database
+- virtual environment and Python bytecode
+- any .env or runtime secrets
+
+Set a new unique CTF_FLAG and SECRET_KEY in your private .env before deployment.

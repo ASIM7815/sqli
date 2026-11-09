@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Lab Access - NEXUS ARCHIVE{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="card">
+        <span class="rail" aria-hidden="true"></span>
+
+        <div class="term-bar">
+            <span class="term-led" aria-hidden="true"></span>
+            <span>auth_gate</span>
+            <span class="path" aria-hidden="true">:: /nexus/secure/login</span>
+        </div>
+
+        <div class="term-body">
+            <pre class="ascii-art" aria-hidden="true">+--------------------------------------+
+|  N E X U S   A R C H I V E           |
+|  secure terminal // uplink verified  |
++--------------------------------------+</pre>
+
+            <h2 class="login-card-title">Lab Access</h2>
+            <p class="lab-notice">Use the supplied lab credentials to access the training portal.</p>
+
+            <form method="post" class="login-form" novalidate>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" autocomplete="username" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+
+            <p class="login-hint">&gt; awaiting operator credentials<span class="prompt-caret">_</span></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

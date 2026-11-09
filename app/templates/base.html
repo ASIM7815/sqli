@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0a0a12">
+    <title>{% block title %}NEXUS ARCHIVE — Legacy Records Terminal{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2300d9ff'/%3E%3Cstop%20offset='1'%20stop-color='%23ff2e9a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%230a0a12'/%3E%3Cpath%20d='M32%208%2056%2021v22L32%2056%208%2043V21z'%20fill='none'%20stroke='url(%23g)'%20stroke-width='3'/%3E%3Cpath%20d='M25%2043V23l14%2020V23'%20fill='none'%20stroke='%2300d9ff'%20stroke-width='3.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="scan-sweep" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="brand">
+                <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="Nexus Archive emblem">
+                    <defs>
+                        <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#00d9ff"/>
+                            <stop offset="1" stop-color="#ff2e9a"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M32 6 L56 19 v26 L32 58 L8 45 V19 z" fill="none" stroke="url(#brandGrad)" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M25 44 V22 l14 22 V22" fill="none" stroke="#00d9ff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="32" cy="12" r="2.5" fill="#ff2e9a"/>
+                </svg>
+                <div class="brand-text">
+                    <h1 class="site-title">NEXUS ARCHIVE</h1>
+                    <p class="site-subtitle">Legacy Records Terminal</p>
+                </div>
+            </div>
+
+            <p class="status-strip">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>System: Legacy Records Archive — Online</span>
+                <span class="sep" aria-hidden="true">//</span>
+                <span class="muted">Sector 7 · Cold Storage</span>
+                <span class="sep" aria-hidden="true">//</span>
+                <span class="muted">Uplink Encrypted</span>
+            </p>
+        </div>
+    </header>
+
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="container">
+            <ul class="nav-list">
+                {% if session.user_id %}
+                    <li><a href="{{ url_for('main.dashboard') }}"{% if request.endpoint == 'main.dashboard' %} aria-current="page"{% endif %}>Dashboard</a></li>
+                    <li><a href="{{ url_for('main.records') }}"{% if request.endpoint == 'main.records' %} aria-current="page"{% endif %}>Records</a></li>
+                    <li><a href="{{ url_for('vuln_search.vulnerable_search') }}"{% if request.endpoint == 'vuln_search.vulnerable_search' %} aria-current="page"{% endif %}>Search</a></li>
+                    <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
+                {% else %}
+                    <li class="nav-empty">No active session</li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages" role="alert">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p><span class="footer-tag">NEXUS ARCHIVE</span> — Security Training Lab | For educational use only | Bind to localhost only</p>
+        </div>
+    </footer>
+</body>
+</html>

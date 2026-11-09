@@ -1,0 +1,25 @@
+services:
+  queryquest:
+    build: .
+    container_name: queryquest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PORT: "5000"
+      WEB_CONCURRENCY: "2"
+      COOKIE_SECURE: "1"
+    ports:
+      # Keep the app private on the server; put HTTPS reverse proxy in front.
+      - "127.0.0.1:5002:5000"
+    volumes:
+      - queryquest-data:/app/instance/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/login', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  queryquest-data:

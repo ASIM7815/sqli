@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Records - NEXUS ARCHIVE{% endblock %}
+
+{% block content %}
+<div class="records-page">
+    <header class="page-header">
+        <h2>Ordinary Records</h2>
+        <p>{{ records|length }} records available</p>
+    </header>
+
+    <div class="records-list">
+        {% for record in records %}
+        <article class="record-row">
+            <div class="record-row-head">
+                <span class="rec-id">REC-{{ record.id }}</span>
+                <h3>{{ record.title }}</h3>
+                <span class="record-category">{{ record.category }}</span>
+            </div>
+            <p class="record-preview">{{ record.content[:120] }}{% if record.content|length > 120 %}...{% endif %}</p>
+            <div class="record-row-foot">
+                <a href="{{ url_for('main.record_detail', rec_id=record.id) }}" class="btn btn-secondary">View</a>
+                <span class="prompt-caret" aria-hidden="true">&gt;</span>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

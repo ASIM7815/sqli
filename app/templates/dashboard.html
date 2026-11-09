@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - NEXUS ARCHIVE{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="welcome-card card">
+        <span class="rail" aria-hidden="true"></span>
+        <h2>Welcome, {{ username }}</h2>
+        <p>You are logged into the legacy internal records portal as a security trainee.</p>
+    </div>
+
+    <div class="card sys-panel">
+        <span class="rail" aria-hidden="true"></span>
+        <h3 class="panel-title">System Status</h3>
+        <ul class="sys-rows">
+            <li><span class="status-dot" aria-hidden="true"></span><span class="k">Archive Node</span><span class="v-ok">ONLINE</span></li>
+            <li><span class="k">Records Link</span><span class="v-ok">STABLE</span><span class="sep muted">//</span><span class="muted">cached index warm</span></li>
+            <li><span class="k">Uplink</span><span class="v-ok">ENCRYPTED</span><span class="sep muted">//</span><span class="muted">handshake verified</span></li>
+            <li><span class="k">DB Engine</span><span class="v">SQLite3</span><span class="sep muted">//</span><span class="muted">embedded</span></li>
+            <li><span class="k">Terminal</span><span class="v-warn">DECOMMISSIONED BUILD</span><span class="sep muted">//</span><span class="muted">read-write</span></li>
+        </ul>
+    </div>
+
+    <div class="challenge-card card">
+        <span class="rail" aria-hidden="true"></span>
+        <h3>Challenge Objective</h3>
+        <p>Investigate the legacy record search and recover the restricted record's flag.</p>
+    </div>
+
+    <div class="nav-cards">
+        <a href="{{ url_for('main.records') }}" class="nav-card card">
+            <span class="rail" aria-hidden="true"></span>
+            <h3>Browse Records</h3>
+            <p>View ordinary records accessible to trainees.</p>
+            <span class="btn btn-secondary">Open Index</span>
+        </a>
+        <a href="{{ url_for('vuln_search.vulnerable_search') }}" class="nav-card card">
+            <span class="rail" aria-hidden="true"></span>
+            <h3>Search Records</h3>
+            <p>Search the legacy record database.</p>
+            <span class="btn btn-secondary">Open Console</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

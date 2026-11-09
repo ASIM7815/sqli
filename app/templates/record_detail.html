@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}{{ record.title }} - NEXUS ARCHIVE{% endblock %}
+
+{% block content %}
+<div class="record-detail">
+    <header class="page-header">
+        <h2>{{ record.title }}</h2>
+        <span class="badge">{{ record.category }}</span>
+    </header>
+
+    <article class="card">
+        <span class="rail" aria-hidden="true"></span>
+        <div class="term-bar">
+            <span class="term-led" aria-hidden="true"></span>
+            <span>record_view</span>
+            <span class="path" aria-hidden="true">:: /nexus/records/{{ record.id }}</span>
+        </div>
+        <div class="term-body">
+            <div class="record-content">{{ record.content | safe }}</div>
+        </div>
+    </article>
+
+    <nav class="record-nav" aria-label="Record navigation">
+        <a href="{{ url_for('main.records') }}" class="btn btn-secondary">Back to Records</a>
+        <a href="{{ url_for('vuln_search.vulnerable_search') }}" class="btn btn-primary">Search Records</a>
+    </nav>
+</div>
+{% endblock %}

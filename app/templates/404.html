@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Not Found - NEXUS ARCHIVE{% endblock %}
+
+{% block content %}
+<div class="error-page card">
+    <span class="rail" aria-hidden="true"></span>
+    <p class="error-code" aria-hidden="true">404</p>
+    <h2>404 - Record Not Found</h2>
+    <p>The requested record does not exist or is not accessible.</p>
+    <p class="result-meta">&gt; link severed<span class="prompt-caret" aria-hidden="true">_</span></p>
+    <a href="{{ url_for('main.records') }}" class="btn btn-primary">Back to Records</a>
+</div>
+{% endblock %}
